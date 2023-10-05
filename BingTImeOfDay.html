@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!-- DOCTYPE HTML/Language -->
+<html lang="en">
+
+<head>
+    <!-- Metadata Selection -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page Meta Title -->
+    <title>Greetings and Name Meaning</title>
+
+    <!-- Page Style Selection -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #greeting {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        
+        #name-meaning {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        /* Styles for different times of day */
+        
+        .morning {
+            background-color: lightblue;
+        }
+        
+        .afternoon {
+            background-color: #4682B4;
+            color: white;
+        }
+        
+        .evening {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Title Generated at Page Load -->
+
+    <h1>Greeting and Name Meaning</h1>
+
+    <!-- Directions for Form Entry -->
+
+    <label for="firstName">Enter your first name: </label>
+
+    <!-- Form Creation -->
+
+    <input type="text" id="firstName" placeholder="Your First Name">
+
+    <!-- Button Creation -->
+    <button onclick="showGreetingAndMeaning()">Submit</button>
+
+    <div id="greeting"></div>
+    <div id="name-meaning"></div>
+
+    <!-- Add an iframe to display Bing search results -->
+    <iframe id="searchIframe" width="100%" height="400" frameborder="0"></iframe>
+
+    <script>
+        // Function to determine and set the time of day and background color
+        function setTimeOfDay() {
+
+            // Fine Current Date and Time from user system
+            const now = new Date();
+            const hours = now.getHours();
+
+
+            let timeOfDay;
+
+            // Deside which greeting to choose using system time data
+
+            if (hours >= 6 && hours < 12) {
+                timeOfDay = "morning";
+            } else if (hours >= 12 && hours < 18) {
+                timeOfDay = "afternoon";
+            } else {
+                timeOfDay = "evening";
+            }
+
+            // Set the background color based on the time of day
+            document.body.classList.add(timeOfDay);
+        }
+
+        // Call setTimeOfDay when the page is loaded
+        setTimeOfDay();
+
+        // Function to display greeting and name meaning
+        function showGreetingAndMeaning() {
+            // Get the user's first name from the input field
+            const firstName = document.getElementById("firstName").value;
+
+            // Determine the time of day
+
+            const now = new Date();
+            const hours = now.getHours();
+            let timeOfDay;
+
+            // Recalculate the time and date like before, but this time to choose the desired greeting
+
+            if (hours >= 6 && hours < 12) {
+                timeOfDay = "morning";
+
+            } else if (hours >= 12 && hours < 18) {
+                timeOfDay = "afternoon";
+
+            } else {
+                timeOfDay = "evening";
+            }
+
+            // Display the greeting
+            const greeting = document.getElementById("greeting");
+            // Get the "First Name" from input form and create greeting
+            greeting.textContent = `Hello ${firstName}, good ${timeOfDay}`;
+
+            // Provide a clickable link to the Bing search results page with the user's first name
+            const nameMeaning = document.getElementById("name-meaning");
+            nameMeaning.innerHTML = `<p>See the name meaning on Bing below:</p>`;
+
+            // Set the iframe source to display Bing search results with the user's first name
+            const searchIframe = document.getElementById("searchIframe");
+            // IFrame source Bing URL Input
+            searchIframe.src = `https://www.bing.com/search?q=what+does+${firstName}+mean`;
+        }
+    </script>
+</body>
+
+</html>

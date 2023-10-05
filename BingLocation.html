@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Metal Data Title -->
+    <title>Time Zones and City Images</title>
+
+    <!-- IFrame CSS Styling -->
+    <style>
+        iframe {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Page title generated at page load -->
+    <h1>Time Zones and City Images</h1>
+
+    <!-- Dropdowns for selecting time zones -->
+
+    <!-- Dropdown 1 Generation -->
+    <label for="timezone1">Select Time Zone 1:</label>
+
+    <select id="timezone1">
+       
+    </select>
+
+    <!-- Dropdown 2 Generation -->
+
+    <label for="timezone2">Select Time Zone 2:</label>
+    <select id="timezone2">
+
+        
+    </select>
+
+    <!-- Dropdown 3 Generation -->
+
+    <label for="timezone3">Select Time Zone 3:</label>
+    <select id="timezone3">
+
+
+    </select>
+
+    <!-- Button to display the date and time for the selected time zones -->
+    <button onclick="showTime()">Show</button>
+
+    <!-- input box and button for entering a city -->
+    <div id="cityInput" style="display: none;">
+
+        <!-- Form Creation -->
+        <input type="text" id="city" placeholder="Enter City, State">
+
+        <!-- Called Function for the Show City Button to appear with the form -->
+        <button onclick="showCity()">Show City</button>
+    </div>
+
+    <!-- Iframe to display Bing search results -->
+    <iframe id="bingIframe" style="display: none;"></iframe>
+
+
+    <script>
+        // Function to populate a time zone dropdown
+        function populateTimezones(dropdownId) {
+            // Timezone Dropdown option filler
+            const timezoneSelect = document.getElementById(dropdownId);
+            const timezones = Intl.supportedValuesOf('timeZone');
+
+            // Loop to find each individual timezone and make it an "Option"
+
+            timezones.forEach(timezone => {
+
+
+                const option = document.createElement("option");
+
+
+                option.value = timezone;
+                option.text = timezone;
+
+
+
+                timezoneSelect.appendChild(option);
+            });
+        }
+
+        // Function to display date and time for the selected time zones
+        function showTime() {
+            // Get the selected time zones
+
+            // NOTE: Function is activated on button click
+
+            // Get timezones that were selected by user
+
+            const timezone1 = document.getElementById("timezone1").value;
+
+            const timezone2 = document.getElementById("timezone2").value;
+
+            const timezone3 = document.getElementById("timezone3").value;
+
+            // Get the current date and time for each time zone
+            // Search System for Timezone 1
+            const time1 = new Date().toLocaleString("en-US", {
+                timeZone: timezone1
+            });
+
+            // Search System for Timezone 2
+            const time2 = new Date().toLocaleString("en-US", {
+                timeZone: timezone2
+            });
+
+            // Search System for Timezone 3
+            const time3 = new Date().toLocaleString("en-US", {
+                timeZone: timezone3
+            });
+
+
+
+            // Display the times
+            alert(`Time in ${timezone1}: ${time1}\nTime in ${timezone2}: ${time2}\nTime in ${timezone3}: ${time3}`);
+
+            // Show the city input box and button
+            document.getElementById("cityInput").style.display = "block";
+        }
+
+        // Function to show Bing search results in an iframe
+        function showCity() {
+            // Get the entered city from the input box
+            const city = document.getElementById("city").value;
+
+            // Construct the Bing images search URL for the city
+            const bingSearchUrl = `https://www.bing.com/images/search?q=${city}`;
+
+            // Display the Bing search results in an iframe
+            const iframe = document.getElementById("bingIframe");
+
+            // Input string variable URL as the Iframe Source
+            iframe.src = bingSearchUrl;
+            iframe.style.display = "block";
+
+            // Hide the city input box
+            document.getElementById("cityInput").style.display = "none";
+        }
+
+        // Populate the time zone dropdowns when the page loads
+        // NOTE: Function automatically runs at page load
+        window.onload = function() {
+            populateTimezones("timezone1");
+            populateTimezones("timezone2");
+            populateTimezones("timezone3");
+        };
+    </script>
+</body>
+
+</html>
